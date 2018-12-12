@@ -1,0 +1,11 @@
+{
+  "extends": ["react-app", "prettier", "prettier/react"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "warn",
+    "react/no-access-state-in-setstate": [1, "always"],
+    "react/destructuring-assignment": [1, "always"],
+    "react/prefer-stateless-function": [1]
+  },
+  "plugins": ["prettier", "react"]
+}
