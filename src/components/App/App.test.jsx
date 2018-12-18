@@ -4,8 +4,8 @@ import { mount } from 'enzyme';
 import App from './App';
 
 describe('<App />', () => {
-  it('renders and contains 1 <div>', () => {
+  it('renders and contains 1 <Switch>', () => {
     const wrapper = mount(<App />);
-    expect(wrapper).toContainExactlyOneMatchingElement('div');
+    expect(wrapper).toContainExactlyOneMatchingElement('Switch');
   });
 });
