@@ -1,11 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
-
+import { render } from 'react-testing-library';
 import App from './App';
 
 describe('<App />', () => {
-  it('renders and contains 1 <Switch>', () => {
-    const wrapper = mount(<App />);
-    expect(wrapper).toContainExactlyOneMatchingElement('Switch');
+  it('renders', () => {
+    const { getByText } = render(<App />);
+    expect(getByText('Login')).toBeInTheDocument();
   });
 });
