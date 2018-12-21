@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import Login from '../auth/Login/Login';
+import ResponsiveContainer from '../UI/containers/ResponsiveContainer/ResponsiveContainer';
 import * as routes from '../../shared/constants/routes';
 
 const Register = lazy(() => import('../auth/Register/Register'));
@@ -15,13 +16,15 @@ function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <BrowserRouter>
-        <Switch>
-          <Route path={routes.REGISTER} component={Register} />
-          <Route path={routes.FORGOTPASSWORD} component={ForgotPassword} />
-          <Route path={routes.PROPERTIES} component={Properties} />
-          <Route path={routes.ADMIN} component={Admin} />
-          <Route component={Login} />
-        </Switch>
+        <ResponsiveContainer>
+          <Switch>
+            <Route path={routes.REGISTER} component={Register} />
+            <Route path={routes.FORGOTPASSWORD} component={ForgotPassword} />
+            <Route path={routes.PROPERTIES} component={Properties} />
+            <Route path={routes.ADMIN} component={Admin} />
+            <Route component={Login} />
+          </Switch>
+        </ResponsiveContainer>
       </BrowserRouter>
     </Suspense>
   );
