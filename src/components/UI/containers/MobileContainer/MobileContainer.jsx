@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 import AppHeader from '../../headers/AppHeader/AppHeader';
 import * as routes from '../../../../shared/constants/routes';
 
-export default function MobileContainer({ children }) {
+export default function MobileContainer({ children, userIsAdmin = false }) {
   const [sidebarOpened, setSidebarOpened] = useState(false);
   return (
     <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
@@ -31,14 +31,16 @@ export default function MobileContainer({ children }) {
           >
             Properties
           </Menu.Item>
-          <Menu.Item
-            name="admin"
-            as={NavLink}
-            to={routes.ADMIN}
-            onClick={() => setSidebarOpened(false)}
-          >
-            Admin
-          </Menu.Item>
+          {userIsAdmin && (
+            <Menu.Item
+              name="admin"
+              as={NavLink}
+              to={routes.ADMIN}
+              onClick={() => setSidebarOpened(false)}
+            >
+              Admin
+            </Menu.Item>
+          )}
         </Sidebar>
         <Sidebar.Pusher
           dimmed={sidebarOpened}
