@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import Login from '../auth/Login/Login';
@@ -13,19 +13,30 @@ const Admin = lazy(() => import('../admin/Admin/Admin'));
 const Properties = lazy(() => import('../user/Properties/Properties'));
 
 function App() {
+  const [userLoggedIn] = useState(true);
+  const [userIsAdmin] = useState(false);
+
+  let availableRoutes = (
+    <Switch>
+      <Route path={routes.REGISTER} component={Register} />
+      <Route path={routes.FORGOTPASSWORD} component={ForgotPassword} />
+      <Route component={Login} />
+    </Switch>
+  );
+  if (userLoggedIn) {
+    availableRoutes = (
+      <ResponsiveContainer userIsAdmin={userIsAdmin}>
+        <Switch>
+          {userIsAdmin && <Route path={routes.ADMIN} component={Admin} />}
+          <Route component={Properties} />
+        </Switch>
+      </ResponsiveContainer>
+    );
+  }
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <BrowserRouter>
-        <ResponsiveContainer>
-          <Switch>
-            <Route path={routes.REGISTER} component={Register} />
-            <Route path={routes.FORGOTPASSWORD} component={ForgotPassword} />
-            <Route path={routes.PROPERTIES} component={Properties} />
-            <Route path={routes.ADMIN} component={Admin} />
-            <Route component={Login} />
-          </Switch>
-        </ResponsiveContainer>
-      </BrowserRouter>
+      <BrowserRouter>{availableRoutes}</BrowserRouter>
     </Suspense>
   );
 }

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import AppHeader from '../../headers/AppHeader/AppHeader';
 import * as routes from '../../../../shared/constants/routes';
 
-export default function DesktopContainer({ children }) {
+export default function DesktopContainer({ children, userIsAdmin = false }) {
   return (
     <Responsive minWidth={Responsive.onlyTablet.minWidth}>
       <Segment
@@ -19,9 +19,11 @@ export default function DesktopContainer({ children }) {
             <Menu.Item name="properties" as={NavLink} to={routes.PROPERTIES}>
               Properties
             </Menu.Item>
-            <Menu.Item name="admin" as={NavLink} to={routes.ADMIN}>
-              Admin
-            </Menu.Item>
+            {userIsAdmin && (
+              <Menu.Item name="admin" as={NavLink} to={routes.ADMIN}>
+                Admin
+              </Menu.Item>
+            )}
           </Container>
         </Menu>
       </Segment>
