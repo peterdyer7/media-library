@@ -13,7 +13,7 @@ const Admin = lazy(() => import('../admin/Admin/Admin'));
 const Properties = lazy(() => import('../user/Properties/Properties'));
 
 function App() {
-  const [userLoggedIn] = useState(true);
+  const [userLoggedIn] = useState(false);
   const [userIsAdmin] = useState(false);
 
   let availableRoutes = (
