@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Label, Checkbox, Confirm } from 'semantic-ui-react';
+import { Form, Button, Label, Confirm } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -53,13 +53,14 @@ export default function RegisterForm() {
         isSubmitting,
         setFieldValue
       }) => (
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form size="large" onSubmit={handleSubmit} data-testid="register-form">
           <Form.Group widths="equal">
             <Form.Field error={errors.firstName && touched.firstName}>
-              <Form.Input
-                label="First name"
+              <label>First name</label>
+              <input
                 type="text"
                 name="firstName"
+                data-testid="firstNameInput"
                 placeholder="First name"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -70,10 +71,11 @@ export default function RegisterForm() {
               ) : null}
             </Form.Field>
             <Form.Field error={errors.lastName && touched.lastName}>
-              <Form.Input
-                label="Last name"
+              <label>Last name</label>
+              <input
                 type="text"
                 name="lastName"
+                data-testid="lastNameInput"
                 placeholder="Last name"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -85,10 +87,11 @@ export default function RegisterForm() {
             </Form.Field>
           </Form.Group>
           <Form.Field error={errors.company && touched.company}>
-            <Form.Input
-              label="Company"
+            <label>Company</label>
+            <input
               type="text"
               name="company"
+              data-testid="companyInput"
               placeholder="Company"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -99,10 +102,11 @@ export default function RegisterForm() {
             ) : null}
           </Form.Field>
           <Form.Field error={errors.email && touched.email}>
-            <Form.Input
-              label="Email address"
+            <label>Email address</label>
+            <input
               type="text"
               name="email"
+              data-testid="emailInput"
               placeholder="Email address"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -114,10 +118,11 @@ export default function RegisterForm() {
           </Form.Field>
           <Form.Group widths="equal">
             <Form.Field error={errors.password1 && touched.password1}>
-              <Form.Input
-                label="Password"
+              <label>Password</label>
+              <input
                 type="password"
                 name="password1"
+                data-testid="password1Input"
                 placeholder="Password"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -128,10 +133,11 @@ export default function RegisterForm() {
               ) : null}
             </Form.Field>
             <Form.Field error={errors.password2 && touched.password2}>
-              <Form.Input
-                label="Confirm password"
+              <label>Confirm password</label>
+              <input
                 type="password"
                 name="password2"
+                data-testid="password2Input"
                 placeholder="Confirm password"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -143,25 +149,30 @@ export default function RegisterForm() {
             </Form.Field>
           </Form.Group>
           <Form.Field error={errors.agree && touched.agree}>
-            <Checkbox
-              label="I agree to the"
-              id="agree"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              checked={values.agree}
-            />
-            &nbsp;&nbsp;
-            <Button
-              type="button"
-              basic
-              compact
-              color="black"
-              onClick={() => {
-                setTermsConfirmOpen(true);
-              }}
-            >
-              Terms and Conditions
-            </Button>
+            <label>
+              <input
+                type="checkbox"
+                id="agree"
+                name="agree"
+                data-testid="agreeInput"
+                style={{ verticalAlign: 'middle' }}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                checked={values.agree}
+              />
+              &nbsp;&nbsp;I agree to the &nbsp;&nbsp;
+              <Button
+                type="button"
+                basic
+                compact
+                color="black"
+                onClick={() => {
+                  setTermsConfirmOpen(true);
+                }}
+              >
+                Terms and Conditions
+              </Button>
+            </label>
             <Confirm
               open={termsConfirmOpen}
               cancelButton="Disagree"
@@ -186,6 +197,7 @@ export default function RegisterForm() {
           </Form.Field>
 
           <Button
+            data-testid="submit"
             type="submit"
             fluid
             size="large"
