@@ -32,13 +32,14 @@ export default function LoginForm() {
         isValid,
         isSubmitting
       }) => (
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form size="large" onSubmit={handleSubmit} data-testid="login-form">
           <Form.Field error={errors.email && touched.email}>
             <Input fluid iconPosition="left" placeholder="Email address">
               <Icon name="user" />
               <input
                 type="text"
                 name="email"
+                data-testid="emailInput"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
@@ -54,16 +55,20 @@ export default function LoginForm() {
               <input
                 type="password"
                 name="password"
+                data-testid="passwordInput"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
               />
             </Input>
             {errors.password && touched.password && (
-              <Label pointing>{errors.password}</Label>
+              <Label data-testid="passwordError" pointing>
+                {errors.password}
+              </Label>
             )}
           </Form.Field>
           <Button
+            data-testid="submit"
             type="submit"
             fluid
             size="large"

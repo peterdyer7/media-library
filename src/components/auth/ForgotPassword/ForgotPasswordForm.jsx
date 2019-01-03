@@ -30,12 +30,17 @@ export default function ForgotPasswordForm() {
         isValid,
         isSubmitting
       }) => (
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form
+          size="large"
+          onSubmit={handleSubmit}
+          data-testid="forgotpassword-form"
+        >
           <Form.Field error={errors.email && touched.email}>
-            <Form.Input
-              label="Email address"
+            <label>Email address</label>
+            <input
               type="text"
               name="email"
+              data-testid="emailInput"
               placeholder="Email address"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -47,6 +52,7 @@ export default function ForgotPasswordForm() {
           </Form.Field>
 
           <Button
+            data-testid="submit"
             type="submit"
             fluid
             size="large"
