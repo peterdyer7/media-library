@@ -18,17 +18,17 @@ describe('auth reducer', () => {
 
   it('handles AUTH_START', () => {
     const action = { type: 'AUTH_START' };
-    const user = {
+    const authUser = {
       userId: '123',
       token: 'abc'
     };
     const stateBefore = {
-      user,
+      authUser,
       error: null,
       loading: false
     };
     const stateAfter = {
-      user,
+      authUser,
       error: null,
       loading: true
     };
@@ -47,7 +47,7 @@ describe('auth reducer', () => {
       error: null,
       loading: true
     };
-    let action = { type: 'AUTH_SUCCESS', user: user1 };
+    let action = { type: 'AUTH_SUCCESS', authUser: user1 };
     let stateAfter = {
       user: user1,
       error: null,
@@ -66,7 +66,7 @@ describe('auth reducer', () => {
       error: null,
       loading: true
     };
-    action = { type: 'AUTH_SUCCESS', user: user2 };
+    action = { type: 'AUTH_SUCCESS', authUser: user2 };
     stateAfter = {
       user: user2,
       error: null,

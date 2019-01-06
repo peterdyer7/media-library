@@ -26,7 +26,7 @@ const fail = (state, action) => ({
 
 const updateUser = (state, action) => ({
   ...state,
-  user: action.user,
+  user: action.authUser,
   error: null,
   loading: false
 });

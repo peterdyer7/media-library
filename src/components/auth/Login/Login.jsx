@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
-import { Segment, Message, Grid, Image } from 'semantic-ui-react';
+import {
+  Segment,
+  Message,
+  Grid,
+  Image,
+  Dimmer,
+  Loader
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
@@ -11,7 +18,7 @@ import {
 import * as routes from '../../../shared/constants/routes';
 import image from '../../../assets/home.jpg';
 
-export default function Login() {
+export default function Login({ error, loading, boundAuthenticate, user }) {
   useEffect(() => {
     import('../../user/Properties/Properties');
   }, []);
@@ -37,7 +44,11 @@ export default function Login() {
             </Grid.Row>
             <Grid.Row>
               <Segment textAlign="left">
-                <LoginForm />
+                <Dimmer active={loading}>
+                  <Loader />
+                </Dimmer>
+                <LoginForm sendAuth={boundAuthenticate} />
+                {error && <Message error>{error}</Message>}
                 <Message warning>
                   <Message.List>
                     <Message.Item>
@@ -68,6 +79,9 @@ export default function Login() {
           </Grid.Column>
         </Grid.Row>
       </Grid>
+      <span data-testid="userId" style={{ visibility: 'hidden' }}>
+        {user && user.userId}
+      </span>
     </div>
   );
 }

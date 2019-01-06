@@ -1,7 +1,8 @@
 import React, { lazy, Suspense, useState } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
-import Login from '../auth/Login/Login';
+// import Login from '../auth/Login/Login';
+import LoginContainer from '../../containers/auth/Login/LoginContainer';
 import ResponsiveContainer from '../UI/containers/ResponsiveContainer/ResponsiveContainer';
 import * as routes from '../../shared/constants/routes';
 
@@ -20,7 +21,7 @@ function App() {
     <Switch>
       <Route path={routes.REGISTER} component={Register} />
       <Route path={routes.FORGOTPASSWORD} component={ForgotPassword} />
-      <Route component={Login} />
+      <Route component={LoginContainer} />
     </Switch>
   );
   if (userLoggedIn) {

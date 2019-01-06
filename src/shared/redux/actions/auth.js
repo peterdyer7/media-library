@@ -1,4 +1,9 @@
-import { login, register, logout as fbLogout } from '../../firebase/auth/auth';
+import {
+  login,
+  register,
+  getToken,
+  logout as fbLogout
+} from '../../firebase/auth/auth';
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -41,10 +46,11 @@ export const authenticate = (user, isLogin) => async (dispatch) => {
     } else {
       authUser = await register(user.email, user.password);
     }
+    const token = await getToken();
     dispatch(
       authSuccess({
         userId: authUser.uid,
-        token: authUser.qa
+        token
       })
     );
   } catch (err) {
