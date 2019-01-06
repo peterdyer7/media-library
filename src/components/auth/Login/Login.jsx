@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Segment,
   Message,
@@ -85,3 +86,10 @@ export default function Login({ error, loading, boundAuthenticate, user }) {
     </div>
   );
 }
+
+Login.propTypes = {
+  error: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  boundAuthenticate: PropTypes.func.isRequired
+};

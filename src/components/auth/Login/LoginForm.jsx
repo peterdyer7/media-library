@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Button, Input, Label, Icon } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -82,3 +83,7 @@ export default function LoginForm({ sendAuth }) {
     </Formik>
   );
 }
+
+LoginForm.propTypes = {
+  sendAuth: PropTypes.func.isRequired
+};

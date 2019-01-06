@@ -7,13 +7,13 @@ import {
 
 const INITIAL_STATE = {
   user: {},
-  error: null,
+  error: '',
   loading: false
 };
 
 const start = (state, action) => ({
   ...state,
-  error: null,
+  error: '',
   loading: true
 });
 
@@ -27,14 +27,14 @@ const fail = (state, action) => ({
 const updateUser = (state, action) => ({
   ...state,
   user: action.authUser,
-  error: null,
+  error: '',
   loading: false
 });
 
 const removeUser = (state, action) => ({
   ...state,
   user: {},
-  error: null,
+  error: '',
   loading: false
 });
 
