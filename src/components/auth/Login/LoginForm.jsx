@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import * as errors from '../../../shared/constants/errors';
 
-export default function LoginForm() {
+export default function LoginForm({ sendAuth }) {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -15,9 +15,9 @@ export default function LoginForm() {
           .required(errors.REQ),
         password: Yup.string().required(errors.REQ)
       })}
-      onSubmit={async (values, { setSubmitting, setTouched }) => {
+      onSubmit={(values, { setSubmitting, setTouched }) => {
         setSubmitting(true);
-        console.log(values);
+        sendAuth({ email: values.email, password: values.password });
         setTouched({ email: false, password: false });
         setSubmitting(false);
       }}
