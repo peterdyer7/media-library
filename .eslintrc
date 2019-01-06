@@ -5,7 +5,8 @@
     "no-console": "warn",
     "react/no-access-state-in-setstate": [1, "always"],
     "react/destructuring-assignment": [1, "always"],
-    "react/prefer-stateless-function": [1]
+    "react/prefer-stateless-function": [1],
+    "react/prop-types": [1]
   },
   "plugins": ["prettier", "react"]
 }

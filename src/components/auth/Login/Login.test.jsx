@@ -9,7 +9,12 @@ describe('<Login />', () => {
   it('renders and contains header', () => {
     const { getByText } = render(
       <MemoryRouter initialEntries={['/login']}>
-        <Login />
+        <Login
+          error=""
+          loading={false}
+          user={{ userId: '', token: '' }}
+          boundAuthenticate={() => {}}
+        />
       </MemoryRouter>
     );
     expect(getByText(COMPANY_LABEL)).toBeInTheDocument();
@@ -18,7 +23,12 @@ describe('<Login />', () => {
   it('renders and contains form fields', () => {
     const { getByTestId } = render(
       <MemoryRouter initialEntries={['/login']}>
-        <Login />
+        <Login
+          error=""
+          loading={false}
+          user={{ userId: '', token: '' }}
+          boundAuthenticate={() => {}}
+        />
       </MemoryRouter>
     );
 
@@ -29,7 +39,12 @@ describe('<Login />', () => {
   it('renders and contains submit button, initially disabled', () => {
     const { getByTestId } = render(
       <MemoryRouter initialEntries={['/login']}>
-        <Login />
+        <Login
+          error=""
+          loading={false}
+          user={{ userId: '', token: '' }}
+          boundAuthenticate={() => {}}
+        />
       </MemoryRouter>
     );
 
@@ -43,7 +58,12 @@ describe('<Login />', () => {
   it('renders and contains form, initially empty', () => {
     const { getByTestId } = render(
       <MemoryRouter initialEntries={['/login']}>
-        <Login />
+        <Login
+          error=""
+          loading={false}
+          user={{ userId: '', token: '' }}
+          boundAuthenticate={() => {}}
+        />
       </MemoryRouter>
     );
 
@@ -56,7 +76,12 @@ describe('<Login />', () => {
   it('renders and inputs must be valid to enable submit', async () => {
     const { getByTestId } = render(
       <MemoryRouter initialEntries={['/login']}>
-        <Login />
+        <Login
+          error=""
+          loading={false}
+          user={{ userId: '', token: '' }}
+          boundAuthenticate={() => {}}
+        />
       </MemoryRouter>
     );
 
