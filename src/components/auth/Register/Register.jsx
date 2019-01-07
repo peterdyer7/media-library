@@ -1,5 +1,13 @@
 import React from 'react';
-import { Segment, Message, Container, Grid } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import {
+  Segment,
+  Message,
+  Container,
+  Grid,
+  Dimmer,
+  Loader
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import RegisterForm from './RegisterForm';
@@ -7,7 +15,7 @@ import RegisterHeader from '../../UI/headers/RegisterHeader/RegisterHeader';
 import { BACKGROUND_COLOR } from '../../../shared/constants/company';
 import * as routes from '../../../shared/constants/routes';
 
-export default function Register() {
+export default function Register({ error, loading, boundAuthenticate, user }) {
   return (
     <div
       style={{
@@ -16,6 +24,9 @@ export default function Register() {
         backgroundColor: BACKGROUND_COLOR
       }}
     >
+      <Dimmer active={loading}>
+        <Loader />
+      </Dimmer>
       <Grid centered verticalAlign="top">
         <Grid.Row verticalAlign="top" style={{ paddingBottom: '0em' }}>
           <Grid.Column>
@@ -26,7 +37,8 @@ export default function Register() {
           <Grid.Column>
             <Container>
               <Segment textAlign="left">
-                <RegisterForm />
+                <RegisterForm sendAuth={boundAuthenticate} />
+                {error && <Message error>{error}</Message>}
                 <Message warning>
                   <Message.List>
                     <Message.Item>
@@ -46,6 +58,16 @@ export default function Register() {
           </Grid.Column>
         </Grid.Row>
       </Grid>
+      <span data-testid="userId" style={{ visibility: 'hidden' }}>
+        {user && user.userId}
+      </span>
     </div>
   );
 }
+
+Register.propTypes = {
+  error: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  boundAuthenticate: PropTypes.func.isRequired
+};
