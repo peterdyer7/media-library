@@ -36,7 +36,8 @@ export default function ForgotPassword() {
                 <Header size="medium">Forgot Password</Header>
                 <p>
                   Enter your email address and we will send you a link to reset
-                  your password.
+                  your password. Be sure to check your spam folder if you do not
+                  see the email in your inbox.
                 </p>
                 <ForgotPassordForm />
                 <Message warning>

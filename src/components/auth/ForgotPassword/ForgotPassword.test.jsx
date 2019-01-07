@@ -42,4 +42,38 @@ describe('<ForgotPassword />', () => {
     expect(email.value).toBe(invalidEmail);
     await wait(() => expect(button).toBeDisabled());
   });
+
+  it('renders and submits successfully - failed case', async () => {
+    const { getByTestId, getByText } = render(
+      <MemoryRouter initialEntries={['/forgotpassword']}>
+        <ForgotPassword />
+      </MemoryRouter>
+    );
+
+    expect(getByTestId('forgotpassword-form')).toHaveFormValues({
+      email: ''
+    });
+
+    const button = getByTestId('submit');
+
+    const email = getByTestId('emailInput');
+    const validEmailDoesNotExist = 'tester1234567890@example.com';
+
+    // inputs initially empty, submit disable
+    expect(email.value).toBe('');
+    expect(button).toBeDisabled();
+
+    // update to valid inputs, submit enabled
+    fireEvent.change(email, { target: { value: validEmailDoesNotExist } });
+    expect(email.value).toBe(validEmailDoesNotExist);
+    await wait(() => expect(button).not.toBeDisabled());
+
+    // send update and check response
+    fireEvent.click(button);
+    await wait(() => {
+      const expected =
+        'There is no user record corresponding to this identifier. The user may have been deleted.';
+      expect(getByTestId('message').textContent).toBe(expected);
+    });
+  });
 });
