@@ -2,20 +2,19 @@ import React from 'react';
 import { render, fireEvent, wait } from 'react-testing-library';
 import { MemoryRouter } from 'react-router-dom';
 
-import Register from './Register';
+import RegisterContainer from './RegisterContainer';
+import Root from '../../../components/Root/Root';
 import { COMPANY_LABEL } from '../../../shared/constants/company';
+import { deleteUser } from '../../../shared/firebase/auth/auth';
 
-describe('<Register />', () => {
-  it('renders and inputs must be valid to enable submit', async () => {
+describe('<RegisterContainer />', () => {
+  it('renders and submits registration successfully', async () => {
     const { getByTestId, getByText } = render(
-      <MemoryRouter initialEntries={['/register']}>
-        <Register
-          error=""
-          loading={false}
-          user={{}}
-          boundAuthenticate={() => {}}
-        />
-      </MemoryRouter>
+      <Root>
+        <MemoryRouter initialEntries={['/register']}>
+          <RegisterContainer />
+        </MemoryRouter>
+      </Root>
     );
 
     expect(getByText(COMPANY_LABEL)).toBeInTheDocument();
@@ -37,34 +36,18 @@ describe('<Register />', () => {
 
     const firstName = getByTestId('firstNameInput');
     const validFirstName = 'firsty';
-
     const lastName = getByTestId('lastNameInput');
     const validLastName = 'lasty';
-
     const company = getByTestId('companyInput');
     const validCompany = 'company';
-
     const email = getByTestId('emailInput');
-    const validEmail = 'tester@example.com';
-    const invalidEmail = 'tester';
-
+    const validEmail = 'newregister@example.com';
     const password1 = getByTestId('password1Input');
     const password2 = getByTestId('password2Input');
     const validPassword = 'password';
-
     const agree = getByTestId('agreeInput');
 
-    // inputs initially empty, submit disable
-    expect(firstName.value).toBe('');
-    expect(lastName.value).toBe('');
-    expect(company.value).toBe('');
-    expect(email.value).toBe('');
-    expect(password1.value).toBe('');
-    expect(password2.value).toBe('');
-    expect(agree.checked).toBe(false);
-    expect(button).toBeDisabled();
-
-    // update to valid inputs, submit enabled
+    // update form
     fireEvent.change(firstName, { target: { value: validFirstName } });
     fireEvent.change(lastName, { target: { value: validLastName } });
     fireEvent.change(company, { target: { value: validCompany } });
@@ -72,18 +55,27 @@ describe('<Register />', () => {
     fireEvent.change(password1, { target: { value: validPassword } });
     fireEvent.change(password2, { target: { value: validPassword } });
     fireEvent.click(agree);
-    expect(firstName.value).toBe(validFirstName);
-    expect(lastName.value).toBe(validLastName);
-    expect(company.value).toBe(validCompany);
-    expect(email.value).toBe(validEmail);
-    expect(password1.value).toBe(validPassword);
-    expect(password2.value).toBe(validPassword);
-    expect(agree.checked).toBe(true);
-    await wait(() => expect(button).not.toBeDisabled());
 
-    // update to an invalid email, submit disabled
-    fireEvent.change(email, { target: { value: invalidEmail } });
-    expect(email.value).toBe(invalidEmail);
-    await wait(() => expect(button).toBeDisabled());
+    // verify and submit
+    await wait(() => {
+      expect(button).not.toBeDisabled();
+      expect(getByTestId('register-form')).toHaveFormValues({
+        firstName: validFirstName,
+        lastName: validLastName,
+        company: validCompany,
+        email: validEmail,
+        password1: validPassword,
+        agree: true
+      });
+      fireEvent.click(button);
+    });
+
+    // submit registration
+    await wait(() => {
+      expect(getByTestId('userId').textContent).toBeTruthy();
+    });
+
+    // cleanup
+    await deleteUser();
   });
 });

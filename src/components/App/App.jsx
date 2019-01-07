@@ -6,7 +6,10 @@ import LoginContainer from '../../containers/auth/Login/LoginContainer';
 import ResponsiveContainer from '../UI/containers/ResponsiveContainer/ResponsiveContainer';
 import * as routes from '../../shared/constants/routes';
 
-const Register = lazy(() => import('../auth/Register/Register'));
+// const Register = lazy(() => import('../auth/Register/Register'));
+const RegisterContainer = lazy(() =>
+  import('../../containers/auth/Register/RegisterContainer')
+);
 const ForgotPassword = lazy(() =>
   import('../auth/ForgotPassword/ForgotPassword')
 );
@@ -19,7 +22,7 @@ function App() {
 
   let availableRoutes = (
     <Switch>
-      <Route path={routes.REGISTER} component={Register} />
+      <Route path={routes.REGISTER} component={RegisterContainer} />
       <Route path={routes.FORGOTPASSWORD} component={ForgotPassword} />
       <Route component={LoginContainer} />
     </Switch>

@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --verbose",
+    "test": "react-scripts test --verbose=false",
     "eject": "react-scripts eject"
   },
   "browserslist": [

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Button, Label, Confirm } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -6,7 +7,7 @@ import * as Yup from 'yup';
 import * as errors from '../../../shared/constants/errors';
 import { TERMS } from '../../../shared/constants/company';
 
-export default function RegisterForm() {
+export default function RegisterForm({ sendAuth }) {
   const [termsConfirmOpen, setTermsConfirmOpen] = useState(false);
 
   return (
@@ -37,7 +38,7 @@ export default function RegisterForm() {
       })}
       onSubmit={async (values, { setSubmitting, setTouched }) => {
         setSubmitting(true);
-        console.log(values);
+        sendAuth({ email: values.email, password: values.password1 });
         setTouched({ email: false });
         setSubmitting(false);
       }}
@@ -211,3 +212,7 @@ export default function RegisterForm() {
     </Formik>
   );
 }
+
+RegisterForm.propTypes = {
+  sendAuth: PropTypes.func.isRequired
+};
