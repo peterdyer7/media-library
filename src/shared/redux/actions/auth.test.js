@@ -4,10 +4,12 @@ import thunk from 'redux-thunk';
 import {
   authenticate,
   logout,
+  resetPassword,
   AUTH_START,
   AUTH_SUCCESS,
   AUTH_FAIL,
-  AUTH_LOGOUT
+  AUTH_LOGOUT,
+  AUTH_RESETPASSWORD
 } from './auth';
 import { deleteUser } from '../../firebase/auth/auth';
 
@@ -80,5 +82,30 @@ describe('auth actions (async)', () => {
     expect(actions).toHaveLength(2);
     expect(actions[0]).toMatchObject({ type: AUTH_START });
     expect(actions[1]).toMatchObject({ type: AUTH_FAIL });
+  });
+
+  it('dispatches logout', async () => {
+    await store.dispatch(logout());
+    let actions = store.getActions();
+    expect(actions).toHaveLength(1);
+    expect(actions[0]).toMatchObject({ type: AUTH_LOGOUT });
+  });
+
+  it('dispatchs authenicate (login) and resetPassword actions (success)', async () => {
+    const user = {
+      email: 'peter_dyer@hotmail.com',
+      password: 'password'
+    };
+    await store.dispatch(authenticate(user, true));
+    let actions = store.getActions();
+    expect(actions).toHaveLength(2);
+    expect(actions[0]).toMatchObject({ type: AUTH_START });
+    expect(actions[1]).toMatchObject({ type: AUTH_SUCCESS });
+
+    await store.dispatch(resetPassword(user.password));
+    actions = store.getActions();
+    expect(actions).toHaveLength(4);
+    expect(actions[2]).toMatchObject({ type: AUTH_START });
+    expect(actions[3]).toMatchObject({ type: AUTH_RESETPASSWORD });
   });
 });
