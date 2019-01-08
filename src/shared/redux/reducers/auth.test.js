@@ -8,7 +8,7 @@ describe('auth reducer', () => {
     const action = {};
     const stateAfter = {
       user: {},
-      error: null,
+      error: '',
       loading: false
     };
     // deepFreeze(stateBefore); cannot deepFreeze undefined
@@ -20,16 +20,17 @@ describe('auth reducer', () => {
     const action = { type: 'AUTH_START' };
     const authUser = {
       userId: '123',
-      token: 'abc'
+      token: 'abc',
+      email: 'auser@example.com'
     };
     const stateBefore = {
       authUser,
-      error: null,
+      error: '',
       loading: false
     };
     const stateAfter = {
       authUser,
-      error: null,
+      error: '',
       loading: true
     };
     deepFreeze(stateBefore);
@@ -40,17 +41,18 @@ describe('auth reducer', () => {
   it('handles AUTH_SUCCESS', () => {
     const user1 = {
       userId: '123',
-      token: 'abc'
+      token: 'abc',
+      email: 'auser@example.com'
     };
     let stateBefore = {
       user: {},
-      error: null,
+      error: '',
       loading: true
     };
     let action = { type: 'AUTH_SUCCESS', authUser: user1 };
     let stateAfter = {
       user: user1,
-      error: null,
+      error: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -59,17 +61,18 @@ describe('auth reducer', () => {
 
     const user2 = {
       userId: '789',
-      token: 'xyz'
+      token: 'xyz',
+      email: 'anotheruser@example.com'
     };
     stateBefore = {
       user: user1,
-      error: null,
+      error: '',
       loading: true
     };
     action = { type: 'AUTH_SUCCESS', authUser: user2 };
     stateAfter = {
       user: user2,
-      error: null,
+      error: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -81,7 +84,7 @@ describe('auth reducer', () => {
     const error = 'Auth fail';
     let stateBefore = {
       user: {},
-      error: null,
+      error: '',
       loading: true
     };
     const action = { type: 'AUTH_FAIL', error };
@@ -96,11 +99,12 @@ describe('auth reducer', () => {
 
     const user = {
       userId: '123',
-      token: 'abc'
+      token: 'abc',
+      email: 'auser@example.com'
     };
     stateBefore = {
       user,
-      error: null,
+      error: '',
       loading: true
     };
     stateAfter = {
@@ -116,17 +120,40 @@ describe('auth reducer', () => {
   it('handles AUTH_LOGOUT', () => {
     const user = {
       userId: '123',
-      token: 'abc'
+      token: 'abc',
+      email: 'auser@example.com'
     };
     const stateBefore = {
       user,
-      error: null,
+      error: '',
       loading: false
     };
     const action = { type: 'AUTH_LOGOUT' };
     const stateAfter = {
       user: {},
-      error: null,
+      error: '',
+      loading: false
+    };
+    deepFreeze(stateBefore);
+    deepFreeze(stateAfter);
+    expect(auth(stateBefore, action)).toEqual(stateAfter);
+  });
+
+  it('handles AUTH_RESETPASSWORD', () => {
+    const user = {
+      userId: '123',
+      token: 'abc',
+      email: 'auser@example.com'
+    };
+    const stateBefore = {
+      user,
+      error: '',
+      loading: true
+    };
+    const action = { type: 'AUTH_RESETPASSWORD' };
+    const stateAfter = {
+      user,
+      error: '',
       loading: false
     };
     deepFreeze(stateBefore);

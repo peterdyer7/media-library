@@ -1,12 +1,12 @@
 import React, { lazy, Suspense, useState } from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
+import { Loader } from 'semantic-ui-react';
 
-// import Login from '../auth/Login/Login';
 import LoginContainer from '../../containers/auth/Login/LoginContainer';
-import ResponsiveContainer from '../UI/containers/ResponsiveContainer/ResponsiveContainer';
+import ResponsiveMenuContainer from '../../containers/UI/menus/ResponsiveMenu/ResponsiveMenuContainer';
 import * as routes from '../../shared/constants/routes';
 
-// const Register = lazy(() => import('../auth/Register/Register'));
 const RegisterContainer = lazy(() =>
   import('../../containers/auth/Register/RegisterContainer')
 );
@@ -14,11 +14,14 @@ const ForgotPassword = lazy(() =>
   import('../auth/ForgotPassword/ForgotPassword')
 );
 const Admin = lazy(() => import('../admin/Admin/Admin'));
+const AccountContainer = lazy(() =>
+  import('../../containers/user/Account/AccountContainer')
+);
 const Properties = lazy(() => import('../user/Properties/Properties'));
 
-function App() {
-  const [userLoggedIn] = useState(false);
-  const [userIsAdmin] = useState(false);
+export default function App({ user }) {
+  // const [userLoggedIn] = useState(false);
+  const [userIsAdmin] = useState(true);
 
   let availableRoutes = (
     <Switch>
@@ -27,22 +30,26 @@ function App() {
       <Route component={LoginContainer} />
     </Switch>
   );
-  if (userLoggedIn) {
+  if (user.token) {
     availableRoutes = (
-      <ResponsiveContainer userIsAdmin={userIsAdmin}>
+      <ResponsiveMenuContainer userIsAdmin={userIsAdmin}>
         <Switch>
           {userIsAdmin && <Route path={routes.ADMIN} component={Admin} />}
-          <Route component={Properties} />
+          <Route path={routes.ACCOUNT} component={AccountContainer} />
+          <Route path={routes.PROPERTIES} component={Properties} />
+          <Redirect to={routes.PROPERTIES} />
         </Switch>
-      </ResponsiveContainer>
+      </ResponsiveMenuContainer>
     );
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <BrowserRouter>{availableRoutes}</BrowserRouter>
     </Suspense>
   );
 }
 
-export default App;
+App.propTypes = {
+  user: PropTypes.object.isRequired
+};

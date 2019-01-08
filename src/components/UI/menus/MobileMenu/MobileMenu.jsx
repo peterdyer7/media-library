@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Responsive,
   Sidebar,
@@ -11,7 +12,12 @@ import { NavLink } from 'react-router-dom';
 import AppHeader from '../../headers/AppHeader/AppHeader';
 import * as routes from '../../../../shared/constants/routes';
 
-export default function MobileContainer({ children, userIsAdmin = false }) {
+export default function MobileMenu({
+  children,
+  userIsAdmin = false,
+  user,
+  logout
+}) {
   const [sidebarOpened, setSidebarOpened] = useState(false);
   return (
     <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
@@ -23,6 +29,7 @@ export default function MobileContainer({ children, userIsAdmin = false }) {
           vertical
           visible={sidebarOpened}
         >
+          <Menu.Item>Hello {user.email}</Menu.Item>
           <Menu.Item
             name="properties"
             as={NavLink}
@@ -41,6 +48,17 @@ export default function MobileContainer({ children, userIsAdmin = false }) {
               Admin
             </Menu.Item>
           )}
+          <Menu.Item
+            name="settings"
+            as={NavLink}
+            to={routes.ACCOUNT}
+            onClick={() => setSidebarOpened(false)}
+          >
+            Settings
+          </Menu.Item>
+          <Menu.Item name="logout" onClick={logout}>
+            Log out
+          </Menu.Item>
         </Sidebar>
         <Sidebar.Pusher
           dimmed={sidebarOpened}
@@ -68,3 +86,10 @@ export default function MobileContainer({ children, userIsAdmin = false }) {
     </Responsive>
   );
 }
+
+MobileMenu.propTypes = {
+  children: PropTypes.element.isRequired,
+  userIsAdmin: PropTypes.bool,
+  user: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
+};

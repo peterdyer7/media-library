@@ -2,13 +2,15 @@ import {
   login,
   register,
   getToken,
-  logout as fbLogout
+  logout as fbLogout,
+  resetPassword as fbResetPassword
 } from '../../firebase/auth/auth';
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const AUTH_RESETPASSWORD = 'AUTH_RESETPASSWORD';
 
 export const authStart = () => ({
   type: AUTH_START
@@ -33,6 +35,12 @@ const authLogout = () => {
   };
 };
 
+const authResetPassword = () => {
+  return {
+    type: AUTH_RESETPASSWORD
+  };
+};
+
 /**
  * user = { email, password }
  * isLogin = true for login : false for register
@@ -50,7 +58,8 @@ export const authenticate = (user, isLogin) => async (dispatch) => {
     dispatch(
       authSuccess({
         userId: authUser.uid,
-        token
+        token,
+        email: user.email
       })
     );
   } catch (err) {
@@ -61,4 +70,14 @@ export const authenticate = (user, isLogin) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   await fbLogout();
   dispatch(authLogout());
+};
+
+export const resetPassword = (newPassword) => async (dispatch) => {
+  dispatch(authStart());
+  try {
+    await fbResetPassword(newPassword);
+    dispatch(authResetPassword());
+  } catch (err) {
+    dispatch(authFail(err.message));
+  }
 };

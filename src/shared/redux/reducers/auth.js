@@ -2,7 +2,8 @@ import {
   AUTH_START,
   AUTH_SUCCESS,
   AUTH_FAIL,
-  AUTH_LOGOUT
+  AUTH_LOGOUT,
+  AUTH_RESETPASSWORD
 } from '../actions/auth';
 
 const INITIAL_STATE = {
@@ -15,6 +16,12 @@ const start = (state, action) => ({
   ...state,
   error: '',
   loading: true
+});
+
+const successNoUpdate = (state, action) => ({
+  ...state,
+  error: '',
+  loading: false
 });
 
 const fail = (state, action) => ({
@@ -51,6 +58,9 @@ const auth = (state = INITIAL_STATE, action) => {
     }
     case AUTH_LOGOUT: {
       return removeUser(state, action);
+    }
+    case AUTH_RESETPASSWORD: {
+      return successNoUpdate(state, action);
     }
     default:
       return state;

@@ -1,13 +1,13 @@
 import React from 'react';
 import { render } from 'react-testing-library';
-import App from './App';
-import Root from '../Root/Root';
+import AppContainer from './AppContainer';
+import Root from '../../components/Root/Root';
 
-describe('<App />', () => {
+describe('<AppContainer />', () => {
   it('renders', () => {
     const { getByText } = render(
       <Root>
-        <App />
+        <AppContainer />
       </Root>
     );
     expect(getByText('Login')).toBeInTheDocument();
