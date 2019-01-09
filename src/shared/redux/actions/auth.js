@@ -53,14 +53,17 @@ export const authenticate = (user, isLogin) => async (dispatch) => {
   dispatch(authStart());
   let authUser;
   let firstName;
+  let role;
   try {
     if (isLogin) {
       authUser = await login(user.email, user.password);
       const fetchedUser = await fetchUser(authUser.uid);
       firstName = fetchedUser.firstName;
+      role = fetchedUser.role;
     } else {
       authUser = await register(user.email, user.password);
       firstName = user.firstName;
+      role = 'user';
       try {
         await createUser({
           uid: authUser.uid,
@@ -69,7 +72,7 @@ export const authenticate = (user, isLogin) => async (dispatch) => {
           lastName: user.lastName,
           company: user.company,
           agreeToTerms: user.agree,
-          role: 'user'
+          role
         });
       } catch (err) {
         await deleteUser();
@@ -84,7 +87,8 @@ export const authenticate = (user, isLogin) => async (dispatch) => {
       authSuccess({
         uid: authUser.uid,
         email: user.email,
-        firstName
+        firstName,
+        role
       })
     );
   } catch (err) {

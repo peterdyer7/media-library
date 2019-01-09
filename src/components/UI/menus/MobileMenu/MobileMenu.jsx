@@ -12,12 +12,7 @@ import { NavLink } from 'react-router-dom';
 import AppHeader from '../../headers/AppHeader/AppHeader';
 import * as routes from '../../../../shared/constants/routes';
 
-export default function MobileMenu({
-  children,
-  userIsAdmin = false,
-  user,
-  logout
-}) {
+export default function MobileMenu({ children, user, logout }) {
   const [sidebarOpened, setSidebarOpened] = useState(false);
   return (
     <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
@@ -38,7 +33,7 @@ export default function MobileMenu({
           >
             Properties
           </Menu.Item>
-          {userIsAdmin && (
+          {user.role === 'admin' && (
             <Menu.Item
               name="admin"
               as={NavLink}
@@ -89,7 +84,6 @@ export default function MobileMenu({
 
 MobileMenu.propTypes = {
   children: PropTypes.element.isRequired,
-  userIsAdmin: PropTypes.bool,
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
 };
