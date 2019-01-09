@@ -4,9 +4,11 @@ import {
   getToken,
   logout as fbLogout,
   resetPassword as fbResetPassword,
-  deleteUser
+  deleteUser,
+  getUser
 } from '../../firebase/auth/auth';
 import { createUser, fetchUser } from '../../firebase/db/users';
+import * as errors from '../../constants/errors';
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -19,7 +21,7 @@ export const authStart = () => ({
 });
 
 /**
- * authUser = { uid, token, email, firstName }
+ * authUser = { uid, email, firstName }
  */
 const authSuccess = (authUser) => ({
   type: AUTH_SUCCESS,
@@ -74,11 +76,13 @@ export const authenticate = (user, isLogin) => async (dispatch) => {
         throw err;
       }
     }
-    const token = await getToken();
+    localStorage.setItem('ml-uid', authUser.uid);
+
+    await handleToken();
+
     dispatch(
       authSuccess({
         uid: authUser.uid,
-        token,
         email: user.email,
         firstName
       })
@@ -88,7 +92,78 @@ export const authenticate = (user, isLogin) => async (dispatch) => {
   }
 };
 
+// timeout default = 59 minutes * 60 seconds/minute * 1000 milliseconds/second
+const handleToken = async (timeout = 3540000) => {
+  if (getUser()) {
+    const token = await getToken(true);
+    const tokenCreated = Date.now();
+    const tokenExpiry = tokenCreated + timeout;
+    localStorage.setItem('ml-token', token);
+    localStorage.setItem('ml-expiry', tokenExpiry);
+    setExpiryTimer(timeout);
+  }
+};
+
+let TIMER;
+const setExpiryTimer = (timeout) => {
+  TIMER = setTimeout(async () => {
+    await handleToken();
+  }, timeout);
+};
+
+export const authCheck = () => async (dispatch) => {
+  dispatch(authStart());
+  try {
+    // retrieve token from Local Storage
+    const token = localStorage.getItem('ml-token');
+    if (!token) {
+      // if there is no token, log as a failed auth and logout to cleanup auth store
+      dispatch(authFail(errors.NO_TOKEN));
+      dispatch(logout());
+    } else {
+      const expiry = localStorage.getItem('ml-expiry');
+      const now = Date.now();
+      if (now > expiry) {
+        // if there is a token but the current time is greater than the expriry,
+        // log as a failed auth and logout to cleanup auth store
+        dispatch(authFail(errors.TOKEN_EXPIRED));
+        dispatch(logout());
+      } else {
+        // retrieve user from db based on what is in local storage
+        const uid = localStorage.getItem('ml-uid');
+        const dbUser = await fetchUser(uid);
+        const curToken = await getToken(false);
+        if (token !== curToken) {
+          // if token in local storage does not match what Firebase Authentication has,
+          // log as a failed auth and logout to cleanup auth store
+          dispatch(authFail(errors.TOKEN_NOTVALID));
+          dispatch(logout());
+        } else {
+          // if there is a token and it is not expired,
+          // write user info to the store, handle token expiry
+          dispatch(
+            authSuccess({
+              uid,
+              role: dbUser.role,
+              firstName: dbUser.firstName,
+              email: dbUser.email
+            })
+          );
+          handleToken();
+        }
+      }
+    }
+  } catch (err) {
+    dispatch(authFail(err.message));
+    dispatch(logout());
+  }
+};
+
 export const logout = () => async (dispatch) => {
+  localStorage.removeItem('ml-uid');
+  localStorage.removeItem('ml-token');
+  localStorage.removeItem('ml-expiry');
+  clearTimeout(TIMER);
   await fbLogout();
   dispatch(authLogout());
 };

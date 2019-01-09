@@ -28,7 +28,8 @@ export const resetPassword = async (password) =>
 
 export const deleteUser = async () => await auth.currentUser.delete();
 
-export const getToken = async () => await auth.currentUser.getIdToken(true);
+export const getToken = async (forceRefresh) =>
+  await auth.currentUser.getIdToken(forceRefresh);
 
 export const getUser = () => {
   const user = auth.currentUser;

@@ -69,7 +69,7 @@ describe('auth.js (Firebase Auth)', () => {
         user = await login(email, password);
         expect(user.uid).toBeTruthy();
 
-        const token = await getToken();
+        const token = await getToken(false);
         expect(token).toBeTruthy();
 
         user = getUser();
