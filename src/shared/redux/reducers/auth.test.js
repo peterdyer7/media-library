@@ -20,7 +20,6 @@ describe('auth reducer', () => {
     const action = { type: 'AUTH_START' };
     const authUser = {
       uid: '123',
-      token: 'abc',
       email: 'auser@example.com'
     };
     const stateBefore = {
@@ -41,7 +40,6 @@ describe('auth reducer', () => {
   it('handles AUTH_SUCCESS', () => {
     const user1 = {
       uid: '123',
-      token: 'abc',
       email: 'auser@example.com',
       firstName: 'firsty'
     };
@@ -62,7 +60,6 @@ describe('auth reducer', () => {
 
     const user2 = {
       uid: '789',
-      token: 'xyz',
       email: 'anotheruser@example.com',
       firstName: 'secondy'
     };
@@ -101,7 +98,6 @@ describe('auth reducer', () => {
 
     const user = {
       uid: '123',
-      token: 'abc',
       email: 'auser@example.com',
       firstName: 'firsty'
     };
@@ -123,7 +119,6 @@ describe('auth reducer', () => {
   it('handles AUTH_LOGOUT', () => {
     const user = {
       uid: '123',
-      token: 'abc',
       email: 'auser@example.com',
       firstName: 'firsty'
     };
@@ -146,7 +141,6 @@ describe('auth reducer', () => {
   it('handles AUTH_RESETPASSWORD', () => {
     const user = {
       uid: '123',
-      token: 'abc',
       email: 'auser@example.com',
       firstName: 'firsty'
     };

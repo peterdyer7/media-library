@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
@@ -19,9 +19,12 @@ const AccountContainer = lazy(() =>
 );
 const Properties = lazy(() => import('../user/Properties/Properties'));
 
-export default function App({ user }) {
-  // const [userLoggedIn] = useState(false);
+export default function App({ user, boundAuthCheck }) {
   const [userIsAdmin] = useState(true);
+
+  useEffect(() => {
+    boundAuthCheck();
+  }, []);
 
   let availableRoutes = (
     <Switch>
@@ -30,7 +33,7 @@ export default function App({ user }) {
       <Route component={LoginContainer} />
     </Switch>
   );
-  if (user.token) {
+  if (user.uid) {
     availableRoutes = (
       <ResponsiveMenuContainer userIsAdmin={userIsAdmin}>
         <Switch>
@@ -51,5 +54,6 @@ export default function App({ user }) {
 }
 
 App.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  boundAuthCheck: PropTypes.func.isRequired
 };
