@@ -19,7 +19,7 @@ describe('auth reducer', () => {
   it('handles AUTH_START', () => {
     const action = { type: 'AUTH_START' };
     const authUser = {
-      userId: '123',
+      uid: '123',
       token: 'abc',
       email: 'auser@example.com'
     };
@@ -40,9 +40,10 @@ describe('auth reducer', () => {
 
   it('handles AUTH_SUCCESS', () => {
     const user1 = {
-      userId: '123',
+      uid: '123',
       token: 'abc',
-      email: 'auser@example.com'
+      email: 'auser@example.com',
+      firstName: 'firsty'
     };
     let stateBefore = {
       user: {},
@@ -60,9 +61,10 @@ describe('auth reducer', () => {
     expect(auth(stateBefore, action)).toEqual(stateAfter);
 
     const user2 = {
-      userId: '789',
+      uid: '789',
       token: 'xyz',
-      email: 'anotheruser@example.com'
+      email: 'anotheruser@example.com',
+      firstName: 'secondy'
     };
     stateBefore = {
       user: user1,
@@ -98,9 +100,10 @@ describe('auth reducer', () => {
     expect(auth(stateBefore, action)).toEqual(stateAfter);
 
     const user = {
-      userId: '123',
+      uid: '123',
       token: 'abc',
-      email: 'auser@example.com'
+      email: 'auser@example.com',
+      firstName: 'firsty'
     };
     stateBefore = {
       user,
@@ -119,9 +122,10 @@ describe('auth reducer', () => {
 
   it('handles AUTH_LOGOUT', () => {
     const user = {
-      userId: '123',
+      uid: '123',
       token: 'abc',
-      email: 'auser@example.com'
+      email: 'auser@example.com',
+      firstName: 'firsty'
     };
     const stateBefore = {
       user,
@@ -141,9 +145,10 @@ describe('auth reducer', () => {
 
   it('handles AUTH_RESETPASSWORD', () => {
     const user = {
-      userId: '123',
+      uid: '123',
       token: 'abc',
-      email: 'auser@example.com'
+      email: 'auser@example.com',
+      firstName: 'firsty'
     };
     const stateBefore = {
       user,

@@ -59,7 +59,7 @@ export default function Register({ error, loading, boundAuthenticate, user }) {
         </Grid.Row>
       </Grid>
       <span data-testid="userId" style={{ visibility: 'hidden' }}>
-        {user && user.userId}
+        {user && user.uid}
       </span>
     </div>
   );

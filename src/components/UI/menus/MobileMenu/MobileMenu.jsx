@@ -29,7 +29,7 @@ export default function MobileMenu({
           vertical
           visible={sidebarOpened}
         >
-          <Menu.Item>Hello {user.email}</Menu.Item>
+          <Menu.Item>Hello {user.firstName}</Menu.Item>
           <Menu.Item
             name="properties"
             as={NavLink}

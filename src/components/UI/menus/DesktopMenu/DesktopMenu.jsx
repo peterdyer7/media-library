@@ -31,7 +31,7 @@ export default function DesktopMenu({
               </Menu.Item>
             )}
             <Menu.Menu position="right">
-              <Menu.Item>Hello {user.email}</Menu.Item>
+              <Menu.Item>Hello {user.firstName}</Menu.Item>
               <Menu.Item name="account" as={NavLink} to={routes.ACCOUNT}>
                 <Icon name="setting" />
                 Settings
