@@ -38,7 +38,14 @@ export default function RegisterForm({ sendAuth }) {
       })}
       onSubmit={async (values, { setSubmitting, setTouched }) => {
         setSubmitting(true);
-        sendAuth({ email: values.email, password: values.password1 });
+        sendAuth({
+          email: values.email,
+          password: values.password1,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          company: values.company,
+          agree: values.agree
+        });
         setTouched({ email: false });
         setSubmitting(false);
       }}

@@ -12,7 +12,7 @@ describe('<Login />', () => {
         <Login
           error=""
           loading={false}
-          user={{ userId: '', token: '' }}
+          user={{}}
           boundAuthenticate={() => {}}
         />
       </MemoryRouter>
@@ -26,7 +26,7 @@ describe('<Login />', () => {
         <Login
           error=""
           loading={false}
-          user={{ userId: '', token: '' }}
+          user={{}}
           boundAuthenticate={() => {}}
         />
       </MemoryRouter>
@@ -42,7 +42,7 @@ describe('<Login />', () => {
         <Login
           error=""
           loading={false}
-          user={{ userId: '', token: '' }}
+          user={{}}
           boundAuthenticate={() => {}}
         />
       </MemoryRouter>
@@ -61,7 +61,7 @@ describe('<Login />', () => {
         <Login
           error=""
           loading={false}
-          user={{ userId: '', token: '' }}
+          user={{}}
           boundAuthenticate={() => {}}
         />
       </MemoryRouter>
@@ -79,7 +79,7 @@ describe('<Login />', () => {
         <Login
           error=""
           loading={false}
-          user={{ userId: '', token: '' }}
+          user={{}}
           boundAuthenticate={() => {}}
         />
       </MemoryRouter>

@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import LoginContainer from './LoginContainer';
 import Root from '../../../components/Root/Root';
 import { COMPANY_LABEL } from '../../../shared/constants/company';
+import { fbUser } from '../../../shared/firebase/firebase';
 
 describe('<LoginContainer />', () => {
   it('renders and contains header', () => {
@@ -28,9 +29,9 @@ describe('<LoginContainer />', () => {
     );
 
     const email = getByTestId('emailInput');
-    const validEmail = 'peter_dyer@hotmail.com';
+    const validEmail = fbUser.email;
     const password = getByTestId('passwordInput');
-    const validPassword = 'password';
+    const validPassword = fbUser.password;
 
     // email and password initially empty, submit disable
     expect(getByTestId('login-form')).toHaveFormValues({

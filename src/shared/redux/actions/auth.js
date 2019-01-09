@@ -3,8 +3,10 @@ import {
   register,
   getToken,
   logout as fbLogout,
-  resetPassword as fbResetPassword
+  resetPassword as fbResetPassword,
+  deleteUser
 } from '../../firebase/auth/auth';
+import { createUser, fetchUser } from '../../firebase/db/users';
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -17,7 +19,7 @@ export const authStart = () => ({
 });
 
 /**
- * authUser = { userId, token }
+ * authUser = { uid, token, email, firstName }
  */
 const authSuccess = (authUser) => ({
   type: AUTH_SUCCESS,
@@ -42,24 +44,43 @@ const authResetPassword = () => {
 };
 
 /**
- * user = { email, password }
+ * user = { email, password, firstName, lastName, company, agree }
  * isLogin = true for login : false for register
  */
 export const authenticate = (user, isLogin) => async (dispatch) => {
   dispatch(authStart());
   let authUser;
+  let firstName;
   try {
     if (isLogin) {
       authUser = await login(user.email, user.password);
+      const fetchedUser = await fetchUser(authUser.uid);
+      firstName = fetchedUser.firstName;
     } else {
       authUser = await register(user.email, user.password);
+      firstName = user.firstName;
+      try {
+        await createUser({
+          uid: authUser.uid,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          company: user.company,
+          agreeToTerms: user.agree,
+          role: 'user'
+        });
+      } catch (err) {
+        await deleteUser();
+        throw err;
+      }
     }
     const token = await getToken();
     dispatch(
       authSuccess({
-        userId: authUser.uid,
+        uid: authUser.uid,
         token,
-        email: user.email
+        email: user.email,
+        firstName
       })
     );
   } catch (err) {

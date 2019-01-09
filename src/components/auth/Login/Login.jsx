@@ -81,7 +81,7 @@ export default function Login({ error, loading, boundAuthenticate, user }) {
         </Grid.Row>
       </Grid>
       <span data-testid="userId" style={{ visibility: 'hidden' }}>
-        {user && user.userId}
+        {user && user.uid}
       </span>
     </div>
   );

@@ -5,7 +5,8 @@ import { MemoryRouter } from 'react-router-dom';
 import RegisterContainer from './RegisterContainer';
 import Root from '../../../components/Root/Root';
 import { COMPANY_LABEL } from '../../../shared/constants/company';
-import { deleteUser } from '../../../shared/firebase/auth/auth';
+import { deleteUser as authDelete } from '../../../shared/firebase/auth/auth';
+import { deleteUser as dbDelete } from '../../../shared/firebase/db/users';
 
 describe('<RegisterContainer />', () => {
   it('renders and submits registration successfully', async () => {
@@ -76,6 +77,7 @@ describe('<RegisterContainer />', () => {
     });
 
     // cleanup
-    await deleteUser();
+    await dbDelete(getByTestId('userId').textContent);
+    await authDelete();
   });
 });

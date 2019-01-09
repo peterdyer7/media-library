@@ -8,7 +8,7 @@ describe('<Account />', () => {
     const email = 'auser@example.com';
     const { getByText } = render(
       <Account
-        user={{ userId: '123', token: 'abc', email: email }}
+        user={{ uid: '123', token: 'abc', email: email }}
         loading={false}
         error=""
         boundResetPassword={() => {}}
