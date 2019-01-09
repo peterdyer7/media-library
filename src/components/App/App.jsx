@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
@@ -20,8 +20,6 @@ const AccountContainer = lazy(() =>
 const Properties = lazy(() => import('../user/Properties/Properties'));
 
 export default function App({ user, boundAuthCheck }) {
-  const [userIsAdmin] = useState(true);
-
   useEffect(() => {
     boundAuthCheck();
   }, []);
@@ -35,9 +33,11 @@ export default function App({ user, boundAuthCheck }) {
   );
   if (user.uid) {
     availableRoutes = (
-      <ResponsiveMenuContainer userIsAdmin={userIsAdmin}>
+      <ResponsiveMenuContainer>
         <Switch>
-          {userIsAdmin && <Route path={routes.ADMIN} component={Admin} />}
+          {user.role === 'admin' && (
+            <Route path={routes.ADMIN} component={Admin} />
+          )}
           <Route path={routes.ACCOUNT} component={AccountContainer} />
           <Route path={routes.PROPERTIES} component={Properties} />
           <Redirect to={routes.PROPERTIES} />

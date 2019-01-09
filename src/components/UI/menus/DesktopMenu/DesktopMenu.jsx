@@ -5,12 +5,7 @@ import { NavLink } from 'react-router-dom';
 import AppHeader from '../../headers/AppHeader/AppHeader';
 import * as routes from '../../../../shared/constants/routes';
 
-export default function DesktopMenu({
-  children,
-  userIsAdmin = false,
-  user,
-  logout
-}) {
+export default function DesktopMenu({ children, user, logout }) {
   return (
     <Responsive minWidth={Responsive.onlyTablet.minWidth}>
       <Segment
@@ -25,7 +20,7 @@ export default function DesktopMenu({
             <Menu.Item name="properties" as={NavLink} to={routes.PROPERTIES}>
               Properties
             </Menu.Item>
-            {userIsAdmin && (
+            {user.role === 'admin' && (
               <Menu.Item name="admin" as={NavLink} to={routes.ADMIN}>
                 Admin
               </Menu.Item>
@@ -51,7 +46,6 @@ export default function DesktopMenu({
 
 DesktopMenu.propTypes = {
   children: PropTypes.element.isRequired,
-  userIsAdmin: PropTypes.bool,
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
 };
