@@ -1,0 +1,26 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow create;
+      allow get, update: if request.auth.uid == userId;
+      allow list, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if request.auth.token.admin == true;
+    }
+  }
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow create;
+      allow get, update: if request.auth.uid == userId;
+      allow list, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+  }
+}
+
