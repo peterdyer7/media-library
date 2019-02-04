@@ -17,7 +17,7 @@ export const fetchUser = async (id) => {
       .collection('users')
       .doc(id)
       .get();
-    if (getDoc) {
+    if (getDoc.exists) {
       return getDoc.data();
     } else {
       return null;

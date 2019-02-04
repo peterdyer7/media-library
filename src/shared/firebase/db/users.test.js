@@ -29,7 +29,53 @@ describe('settings.js (Firebase Firestore)', () => {
       const deletedUser = await fetchUser(user.uid);
       expect(deletedUser).toBeFalsy();
     } catch (err) {
-      expect(err).toBeFalsy(); // show not make it here
+      expect(err).toBeFalsy(); // should not make it here
+    }
+  });
+
+  it('calls createUser and fails when no user is provided', async () => {
+    const user = {};
+    try {
+      await createUser(user);
+      expect(true).toBeFalsy(); // should not make it here
+    } catch (err) {
+      expect(err).toBeTruthy(); // should always fail
+    }
+  });
+
+  it('calls fetchUser and returns null if user is not found', async () => {
+    try {
+      const fetchedUser = await fetchUser('999');
+      expect(fetchedUser).toBeNull();
+    } catch (err) {
+      expect(err).toBeFalsy(); // should not make it here
+    }
+  });
+
+  it('calls fetchUser and fails if no id is provided', async () => {
+    try {
+      const fetchedUser = await fetchUser();
+      expect(fetchedUser).toBeTruthy(); // should not make it here
+    } catch (err) {
+      expect(err).toBeTruthy(); // should always fail
+    }
+  });
+
+  it('calls deleteUser and does not throw an error if no such user exists', async () => {
+    try {
+      const deletededUser = await deleteUser('999');
+      expect(deletededUser).toBeFalsy();
+    } catch (err) {
+      expect(err).toBeFalsy(); // should not make it here
+    }
+  });
+
+  it('calls deleteUser and fails if no id is provided', async () => {
+    try {
+      const deletededUser = await deleteUser();
+      expect(deletededUser).toBeTruthy(); // should not make it here
+    } catch (err) {
+      expect(err).toBeTruthy(); // should always fail
     }
   });
 });
