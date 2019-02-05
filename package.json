@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cuid": "^2.1.4",
     "firebase": "^5.8.2",
     "formik": "^1.4.3",
     "prop-types": "^15.6.2",

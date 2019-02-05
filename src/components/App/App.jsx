@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
-import { Loader } from 'semantic-ui-react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 import LoginContainer from '../../containers/auth/Login/LoginContainer';
 import ResponsiveMenuContainer from '../../containers/UI/menus/ResponsiveMenu/ResponsiveMenuContainer';
@@ -47,7 +47,13 @@ export default function App({ user, boundAuthCheck }) {
   }
 
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense
+      fallback={
+        <Dimmer active>
+          <Loader />
+        </Dimmer>
+      }
+    >
       <BrowserRouter>{availableRoutes}</BrowserRouter>
     </Suspense>
   );
