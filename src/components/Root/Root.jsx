@@ -7,10 +7,12 @@ import thunk from 'redux-thunk';
 
 import auth from '../../shared/redux/reducers/auth';
 import properties from '../../shared/redux/reducers/properties';
+import settings from '../../shared/redux/reducers/settings';
 
 const rootReducer = combineReducers({
   auth,
-  properties
+  properties,
+  settings
 });
 
 const composeEnhancers =
