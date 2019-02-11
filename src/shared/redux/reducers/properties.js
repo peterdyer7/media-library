@@ -16,28 +16,28 @@ import {
 
 const INITIAL_STATE = {
   properties: [],
-  error: null,
-  success: null,
+  error: '',
+  success: '',
   loading: false
 };
 
 const propertyClearMsgs = (state, action) => ({
   ...state,
-  error: null,
-  success: null
+  error: '',
+  success: ''
 });
 
 const propertyStart = (state, action) => ({
   ...state,
-  error: null,
-  success: null,
+  error: '',
+  success: '',
   loading: true
 });
 
 const propertyFail = (state, action) => ({
   ...state,
   loading: false,
-  success: null,
+  success: '',
   error: action.error
 });
 
@@ -47,7 +47,8 @@ const propertyCreateSuccess = (state, action) => {
     ...state,
     properties,
     loading: false,
-    success: action.success
+    success: action.success,
+    error: ''
   };
 };
 
@@ -57,8 +58,8 @@ const propertyDeleteSuccess = (state, action) => {
     ...state,
     properties,
     loading: false,
-    success: null,
-    error: null
+    success: '',
+    error: ''
   };
 };
 

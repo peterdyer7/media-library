@@ -8,8 +8,8 @@ describe('properties reducer', () => {
     const action = {};
     const stateAfter = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     // deepFreeze(stateBefore); cannot deepFreeze undefined
@@ -27,8 +27,8 @@ describe('properties reducer', () => {
     };
     const stateAfter = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -40,14 +40,14 @@ describe('properties reducer', () => {
     const action = { type: 'PROPERTY_CREATE_START' };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     const stateAfter = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     deepFreeze(stateBefore);
@@ -80,13 +80,13 @@ describe('properties reducer', () => {
     };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     const stateAfter = {
       properties: [property],
-      error: null,
+      error: '',
       success: 'Property created!',
       loading: false
     };
@@ -99,14 +99,14 @@ describe('properties reducer', () => {
     const action = { type: 'PROPERTY_CREATE_FAIL', error: 'Error!' };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     const stateAfter = {
       properties: [],
       error: 'Error!',
-      success: null,
+      success: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -135,14 +135,14 @@ describe('properties reducer', () => {
     const action = { type: 'PROPERTY_DELETE_START' };
     const stateBefore = {
       properties: [property],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     const stateAfter = {
       properties: [property],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     deepFreeze(stateBefore);
@@ -174,14 +174,14 @@ describe('properties reducer', () => {
     };
     const stateBefore = {
       properties: [property],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     const stateAfter = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -210,14 +210,14 @@ describe('properties reducer', () => {
     const action = { type: 'PROPERTY_DELETE_FAIL', error: 'Error!' };
     const stateBefore = {
       properties: [property],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     const stateAfter = {
       properties: [property],
       error: 'Error!',
-      success: null,
+      success: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -229,14 +229,14 @@ describe('properties reducer', () => {
     const action = { type: 'PROPERTY_FETCH_START' };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     const stateAfter = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     deepFreeze(stateBefore);
@@ -268,14 +268,14 @@ describe('properties reducer', () => {
     };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     const stateAfter = {
       properties: [property],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -287,14 +287,14 @@ describe('properties reducer', () => {
     const action = { type: 'PROPERTY_FETCH_FAIL', error: 'Error!' };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     const stateAfter = {
       properties: [],
       error: 'Error!',
-      success: null,
+      success: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -306,14 +306,14 @@ describe('properties reducer', () => {
     const action = { type: 'PROPERTIES_FETCH_START' };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     const stateAfter = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     deepFreeze(stateBefore);
@@ -345,14 +345,14 @@ describe('properties reducer', () => {
     };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     const stateAfter = {
       properties: [property],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: false
     };
     deepFreeze(stateBefore);
@@ -364,14 +364,14 @@ describe('properties reducer', () => {
     const action = { type: 'PROPERTIES_FETCH_FAIL', error: 'Error!' };
     const stateBefore = {
       properties: [],
-      error: null,
-      success: null,
+      error: '',
+      success: '',
       loading: true
     };
     const stateAfter = {
       properties: [],
       error: 'Error!',
-      success: null,
+      success: '',
       loading: false
     };
     deepFreeze(stateBefore);
