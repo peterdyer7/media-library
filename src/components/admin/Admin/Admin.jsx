@@ -4,7 +4,8 @@ import { Container, Menu } from 'semantic-ui-react';
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 
 import * as routes from '../../../shared/constants/routes';
-import AdminProperties from '../AdminProperites/AdminProperties';
+//import AdminProperties from '../AdminProperites/AdminProperties';
+import AdminPropertiesContainer from '../../../containers/admin/AdminProperties/AdminPropertiesContainer';
 import AdminProperty from '../AdminProperty/AdminProperty';
 import AdminSettings from '../AdminSettings/AdminSettings';
 
@@ -29,7 +30,7 @@ export default function Admin({ match }) {
           <Route
             path={match.path + routes.ADMINPROPERTIES}
             exact
-            component={AdminProperties}
+            component={AdminPropertiesContainer}
           />
           <Route
             path={match.path + routes.ADMINPROPERTY}
