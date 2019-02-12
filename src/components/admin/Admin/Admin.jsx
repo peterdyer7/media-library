@@ -7,7 +7,8 @@ import * as routes from '../../../shared/constants/routes';
 //import AdminProperties from '../AdminProperites/AdminProperties';
 import AdminPropertiesContainer from '../../../containers/admin/AdminProperties/AdminPropertiesContainer';
 import AdminProperty from '../AdminProperty/AdminProperty';
-import AdminSettings from '../AdminSettings/AdminSettings';
+//import AdminSettings from '../AdminSettings/AdminSettings';
+import AdminSettingsContainer from '../../../containers/admin/AdminSettings/AdminSettingsContainer';
 
 export default function Admin({ match }) {
   return (
@@ -38,7 +39,7 @@ export default function Admin({ match }) {
           />
           <Route
             path={match.path + routes.ADMINSETTINGS}
-            component={AdminSettings}
+            component={AdminSettingsContainer}
           />
           <Redirect to={match.path + routes.ADMINPROPERTIES} />
         </Switch>
