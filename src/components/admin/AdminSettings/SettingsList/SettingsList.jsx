@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Table, Button, Header, Confirm } from 'semantic-ui-react';
 
 import AddSettingModal from '../AddSettingModal/AddSettingModal';
@@ -84,3 +85,14 @@ export default function SettingsList({
     </>
   );
 }
+
+SettingsList.propTypes = {
+  settingLabel: PropTypes.string.isRequired,
+  setting: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  settings: PropTypes.array,
+  allowAdd: PropTypes.bool.isRequired,
+  allowDelete: PropTypes.bool.isRequired,
+  addSetting: PropTypes.func.isRequired,
+  removeSetting: PropTypes.func.isRequired
+};

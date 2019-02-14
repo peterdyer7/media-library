@@ -42,7 +42,7 @@ export default function ResetPasswordForm({ show, sendResetPassword }) {
                 placeholder="New password"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.email}
+                value={values.newPassword}
               />
               {errors.newPassword && touched.newPassword ? (
                 <Label pointing>{errors.newPassword}</Label>
