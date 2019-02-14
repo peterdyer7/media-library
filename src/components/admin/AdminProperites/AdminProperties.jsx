@@ -69,5 +69,5 @@ AdminProperties.propTypes = {
   boundPropertyCreate: PropTypes.func.isRequired,
   boundPropertyDelete: PropTypes.func.isRequired,
   boundPropertyClearMsgs: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
 };

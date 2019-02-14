@@ -86,5 +86,5 @@ export default function AdminPropertiesList({
 AdminPropertiesList.propTypes = {
   properties: PropTypes.array.isRequired,
   propertyDelete: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
 };

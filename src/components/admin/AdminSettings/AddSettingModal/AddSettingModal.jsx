@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'semantic-ui-react';
 
 export default function AddSettingModal({
   toggleModal,
   modalOpen,
-  settingLabel
+  settingLabel,
+  setting,
+  type,
+  addSetting
 }) {
   const [value, setValue] = useState('');
 
   const handleSubmit = (e) => {
-    const { value } = this.state;
-    const { setting, type, addSetting, toggleModal } = this.props;
     e.preventDefault();
     addSetting(type, setting, value);
     toggleModal();
@@ -53,3 +55,12 @@ export default function AddSettingModal({
     </Modal>
   );
 }
+
+AddSettingModal.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+  modalOpen: PropTypes.bool.isRequired,
+  settingLabel: PropTypes.string.isRequired,
+  setting: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  addSetting: PropTypes.func.isRequired
+};

@@ -38,22 +38,7 @@ describe('<Account />', () => {
     expect(showButton).toHaveAttribute('type', 'button');
     fireEvent.click(showButton);
 
-    const submitButton = getByTestId('submit');
-    expect(submitButton).toBeDisabled();
-    expect(submitButton).toHaveAttribute('type', 'submit');
-
     const newPasswordInput = getByTestId('newPasswordInput');
     expect(newPasswordInput).toBeInTheDocument();
-    fireEvent.change(newPasswordInput, { target: { value: 'password' } });
-
-    expect(submitButton).not.toBeDisabled();
-
-    await wait(() => {
-      fireEvent.click(submitButton);
-    });
-
-    await wait(() => {
-      expect(newPasswordInput).not.toBeInTheDocument();
-    });
   });
 });
