@@ -6,7 +6,8 @@ import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import * as routes from '../../../shared/constants/routes';
 //import AdminProperties from '../AdminProperites/AdminProperties';
 import AdminPropertiesContainer from '../../../containers/admin/AdminProperties/AdminPropertiesContainer';
-import AdminProperty from '../AdminProperty/AdminProperty';
+//import AdminProperty from '../AdminProperty/AdminProperty';
+import AdminPropertyContainer from '../../../containers/admin/AdminProperties/AdminProperty/AdminPropertyContainer';
 //import AdminSettings from '../AdminSettings/AdminSettings';
 import AdminSettingsContainer from '../../../containers/admin/AdminSettings/AdminSettingsContainer';
 
@@ -35,7 +36,7 @@ export default function Admin({ match }) {
           />
           <Route
             path={match.path + routes.ADMINPROPERTY}
-            component={AdminProperty}
+            component={AdminPropertyContainer}
           />
           <Route
             path={match.path + routes.ADMINSETTINGS}
