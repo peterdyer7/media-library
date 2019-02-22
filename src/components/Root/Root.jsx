@@ -8,11 +8,13 @@ import thunk from 'redux-thunk';
 import auth from '../../shared/redux/reducers/auth';
 import properties from '../../shared/redux/reducers/properties';
 import settings from '../../shared/redux/reducers/settings';
+import images from '../../shared/redux/reducers/images';
 
 const rootReducer = combineReducers({
   auth,
   properties,
-  settings
+  settings,
+  images
 });
 
 const composeEnhancers =
