@@ -64,7 +64,7 @@ describe('images actions (async)', () => {
     };
 
     await store.dispatch(
-      imageUpload(propertyId, imageId, imageFile, imageMetadata)
+      imageUpload(propertyId, imageFile, imageMetadata, imageId)
     );
     let actions = store.getActions();
     expect(actions).toHaveLength(2);
@@ -99,7 +99,7 @@ describe('images actions (async)', () => {
     };
 
     await store.dispatch(
-      imageUpload(propertyId, imageId, imageFile, imageMetadata)
+      imageUpload(propertyId, imageFile, imageMetadata, imageId)
     );
     actions = store.getActions();
     expect(actions).toHaveLength(4);

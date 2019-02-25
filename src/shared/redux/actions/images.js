@@ -44,7 +44,7 @@ const imageUploadFail = (image) => ({
   image
 });
 
-export const imageUpload = (propertyId, imageId, imageFile, metadata) => async (
+export const imageUpload = (propertyId, imageFile, metadata, imageId) => async (
   dispatch
 ) => {
   let image = {
