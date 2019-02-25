@@ -4,7 +4,8 @@ import { Button, Header, Dimmer, Loader, Menu } from 'semantic-ui-react';
 import { Link, NavLink, Switch, Route, Redirect } from 'react-router-dom';
 
 import AdminPropertyDetails from './AdminPropertyDetails/AdminPropertyDetails';
-import AdminPropertyImages from './AdminPropertyImages/AdminPropertyImages';
+//import AdminPropertyImages from './AdminPropertyImages/AdminPropertyImages';
+import AdminPropertyImagesContainer from '../../../containers/admin/AdminProperties/AdminProperty/AdminPropertyImages/AdminPropertyImagesContainer';
 import AdminPropertyImage from './AdminPropertyImage/AdminPropertyImage';
 import * as routes from '../../../shared/constants/routes';
 
@@ -70,7 +71,9 @@ export default function AdminProperty({
           path={match.url + routes.ADMINPROPERTYIMAGES}
           exact
           render={() => (
-            <AdminPropertyImages propertyId={match.params.propertyId} />
+            <AdminPropertyImagesContainer
+              propertyId={match.params.propertyId}
+            />
           )}
         />
         <Route
