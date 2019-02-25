@@ -6,6 +6,8 @@ import {
   fetchImage,
   fetchImagesForProperty
 } from '../../firebase/db/images';
+import { uploadFile, deleteFile } from '../../firebase/storage/storage';
+import * as errors from '../../constants/errors';
 
 export const IMAGE_UPLOAD_START = 'IMAGE_UPLOAD_START';
 export const IMAGE_UPLOAD_SUCCESS = 'IMAGE_UPLOAD_SUCCESS';
@@ -58,8 +60,21 @@ export const imageUpload = (propertyId, imageId, imageFile, metadata) => async (
   };
   dispatch(imageUploadStart(image));
   try {
-    await setImage(image);
-    dispatch(imageUploadSuccess(image));
+    const res = await uploadFile(image.id, imageFile);
+    if (res) {
+      image = {
+        ...image,
+        active: true,
+        status: 'loaded',
+        uploaded: new Date(res.metadata.timeCreated),
+        updated: new Date(res.metadata.updated),
+        url: res.url
+      };
+      await setImage(image);
+      dispatch(imageUploadSuccess(image));
+    } else {
+      throw new Error(errors.UPLOAD_FAILED);
+    }
   } catch (err) {
     image = {
       ...image,
@@ -117,6 +132,11 @@ export const imageDelete = (imageToDelete) => async (dispatch) => {
   };
   dispatch(imageDeleteStart(image));
   try {
+    // delete file(s) from storage
+    await deleteFile(image.id, image.name);
+    if (image.thumbUrl) {
+      await deleteFile(image.id, `thumb_${image.name}`);
+    }
     // delete database entries
     await deleteImage(image.id);
     image = { ...image, status: 'deleted' };
