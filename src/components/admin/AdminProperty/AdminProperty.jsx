@@ -5,8 +5,9 @@ import { Link, NavLink, Switch, Route, Redirect } from 'react-router-dom';
 
 import AdminPropertyDetails from './AdminPropertyDetails/AdminPropertyDetails';
 //import AdminPropertyImages from './AdminPropertyImages/AdminPropertyImages';
-import AdminPropertyImagesContainer from '../../../containers/admin/AdminProperties/AdminProperty/AdminPropertyImages/AdminPropertyImagesContainer';
-import AdminPropertyImage from './AdminPropertyImage/AdminPropertyImage';
+import AdminPropertyImagesContainer from '../../../containers/admin/AdminProperty/AdminPropertyImages/AdminPropertyImagesContainer';
+//import AdminPropertyImage from './AdminPropertyImage/AdminPropertyImage';
+import AdminPropertyImageContainer from '../../../containers/admin/AdminProperty/AdminPropertyImage/AdminPropertyImageContainer';
 import * as routes from '../../../shared/constants/routes';
 
 export default function AdminProperty({
@@ -78,7 +79,7 @@ export default function AdminProperty({
         />
         <Route
           path={routes.ADMIN + routes.ADMINPROPERTY + routes.ADMINPROPERTYIMAGE}
-          component={AdminPropertyImage}
+          component={AdminPropertyImageContainer}
         />
         <Redirect to={match.url + routes.ADMINPROPERTYDETAILS} />
       </Switch>

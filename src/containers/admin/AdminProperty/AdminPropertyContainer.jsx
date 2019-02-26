@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import AdminProperty from '../../../../components/admin/AdminProperty/AdminProperty';
-import { propertyFetch } from '../../../../shared/redux/actions/properties';
+import AdminProperty from '../../../components/admin/AdminProperty/AdminProperty';
+import { propertyFetch } from '../../../shared/redux/actions/properties';
 
 const mapStateToProps = (state, ownProps) => ({
   property: state.properties.properties.filter(

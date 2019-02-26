@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 
-import AdminPropertyImages from '../../../../../components/admin/AdminProperty/AdminPropertyImages/AdminPropertyImages';
+import AdminPropertyImages from '../../../../components/admin/AdminProperty/AdminPropertyImages/AdminPropertyImages';
 
 import {
   imagesPropertyFetch,
   imageUpload
-} from '../../../../../shared/redux/actions/images';
-import { fetchSettings } from '../../../../../shared/redux/actions/settings';
+} from '../../../../shared/redux/actions/images';
+import { fetchSettings } from '../../../../shared/redux/actions/settings';
 
 const mapStateToProps = (state, ownProps) => ({
   images: state.images.images.filter((image) =>
