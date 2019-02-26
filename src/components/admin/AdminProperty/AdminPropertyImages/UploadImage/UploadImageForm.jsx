@@ -151,8 +151,8 @@ UploadImageForm.propTypes = {
   isUpload: PropTypes.bool.isRequired,
   image: PropTypes.object,
   imageFile: PropTypes.object,
-  propertyId: PropTypes.string.isRequired,
+  propertyId: PropTypes.string,
   imageUpload: PropTypes.func,
   imageUpdate: PropTypes.func,
-  handleReset: PropTypes.func.isRequired
+  handleReset: PropTypes.func
 };
