@@ -18,7 +18,7 @@ export default function ReadOnlyMetadata({ image }) {
           {image.name}
         </List.Item>
         <List.Item>
-          <List.Header>URL</List.Header>
+          <List.Header>URL (full size image)</List.Header>
           {image.url}
         </List.Item>
         <List.Item>
