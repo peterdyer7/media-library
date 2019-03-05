@@ -14,6 +14,22 @@ export const setImage = async (image) => {
 export const deleteImage = async (id) => {
   try {
     await db
+      .collection('labels')
+      .doc(id)
+      .delete();
+    await db
+      .collection('safeSearch')
+      .doc(id)
+      .delete();
+    await db
+      .collection('webDetection')
+      .doc(id)
+      .delete();
+    await db
+      .collection('exif')
+      .doc(id)
+      .delete();
+    await db
       .collection('images')
       .doc(id)
       .delete();

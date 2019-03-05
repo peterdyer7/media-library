@@ -134,8 +134,11 @@ export const imageDelete = (imageToDelete) => async (dispatch) => {
   try {
     // delete file(s) from storage
     await deleteFile(image.id, image.name);
-    if (image.thumbUrl) {
+    if (image.repros.thumbnail) {
       await deleteFile(image.id, `thumb_${image.name}`);
+    }
+    if (image.repros.small) {
+      await deleteFile(image.id, `small_${image.name}`);
     }
     // delete database entries
     await deleteImage(image.id);
