@@ -18,6 +18,7 @@ import {
 
 const INITIAL_STATE = {
   images: [],
+  selectedImage: {},
   error: '',
   loading: false
 };
@@ -43,7 +44,7 @@ const imageDelete = (state, action) => {
   return { ...state, images };
 };
 
-const fetchStart = (state, action) => ({
+const imagesFetchStart = (state, action) => ({
   ...state,
   error: '',
   loading: true
@@ -61,9 +62,15 @@ const imagesFetchSuccess = (state, action) => ({
   loading: false
 });
 
+const imageFetchStart = (state, action) => ({
+  ...state,
+  selectedImage: {},
+  error: '',
+  loading: true
+});
+
 const imageFetchSuccess = (state, action) => {
-  const images = [...state.images, action.image];
-  return { ...state, images, loading: false };
+  return { ...state, selectedImage: action.image, loading: false };
 };
 
 export const images = (state = INITIAL_STATE, action) => {
@@ -96,7 +103,7 @@ export const images = (state = INITIAL_STATE, action) => {
       return imageUpdate(state, action);
     }
     case IMAGES_FETCH_START: {
-      return fetchStart(state, action);
+      return imagesFetchStart(state, action);
     }
     case IMAGES_FETCH_SUCCESS: {
       return imagesFetchSuccess(state, action);
@@ -105,7 +112,7 @@ export const images = (state = INITIAL_STATE, action) => {
       return fetchFail(state, action);
     }
     case IMAGE_FETCH_START: {
-      return fetchStart(state, action);
+      return imageFetchStart(state, action);
     }
     case IMAGE_FETCH_SUCCESS: {
       return imageFetchSuccess(state, action);

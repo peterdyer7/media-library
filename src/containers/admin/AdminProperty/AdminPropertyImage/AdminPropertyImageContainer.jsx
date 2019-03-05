@@ -9,9 +9,7 @@ import {
 import { fetchSettings } from '../../../../shared/redux/actions/settings';
 
 const mapStateToProps = (state, ownProps) => ({
-  image: state.images.images.filter(
-    (image) => image.id === ownProps.match.params.imageId
-  )[0],
+  image: state.images.selectedImage,
   loadingImages: state.images.loading,
   errorImages: state.images.error,
   settings: state.settings.settings,
