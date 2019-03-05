@@ -24,7 +24,13 @@ export default function ImagesList({ images, propertyId }) {
           {image.active ? (
             <Image
               size="small"
-              src={image.thumbUrl ? image.thumbUrl : image.url}
+              src={
+                image.repros
+                  ? image.repros.thumbnail
+                    ? image.repros.thumbnail
+                    : image.url
+                  : image.url
+              }
             />
           ) : (
             <Loader active inline />
