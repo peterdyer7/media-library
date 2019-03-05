@@ -14,6 +14,22 @@ export const setImage = async (image) => {
 export const deleteImage = async (id) => {
   try {
     await db
+      .collection('labels')
+      .doc(id)
+      .delete();
+    await db
+      .collection('safeSearch')
+      .doc(id)
+      .delete();
+    await db
+      .collection('webDetection')
+      .doc(id)
+      .delete();
+    await db
+      .collection('exif')
+      .doc(id)
+      .delete();
+    await db
       .collection('images')
       .doc(id)
       .delete();
@@ -25,18 +41,47 @@ export const deleteImage = async (id) => {
 
 export const fetchImage = async (imageId) => {
   try {
-    const getDoc = await db
+    const imageDoc = await db
       .collection('images')
       .doc(imageId)
       .get();
-    if (getDoc.exists) {
-      return getDoc.data();
+    if (imageDoc.exists) {
+      return addMetadata(imageDoc.data());
     } else {
       return null;
     }
   } catch (err) {
     throw err;
   }
+};
+
+const addMetadata = async (image) => {
+  const imageId = image.id;
+
+  const labelsDoc = await db
+    .collection('labels')
+    .doc(imageId)
+    .get();
+  const safeSearchDoc = await db
+    .collection('safeSearch')
+    .doc(imageId)
+    .get();
+  const webDetectionDoc = await db
+    .collection('webDetection')
+    .doc(imageId)
+    .get();
+  const exifDoc = await db
+    .collection('exif')
+    .doc(imageId)
+    .get();
+
+  return {
+    ...image,
+    ...labelsDoc.data(),
+    ...safeSearchDoc.data(),
+    ...webDetectionDoc.data(),
+    exif: exifDoc.data()
+  };
 };
 
 export const fetchImagesForProperty = async (propertyId) => {

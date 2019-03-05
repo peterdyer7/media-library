@@ -16,6 +16,8 @@ import { Link } from 'react-router-dom';
 import UploadImageForm from '../AdminPropertyImages/UploadImage/UploadImageForm';
 import ReadOnlyMetadata from './ReadOnlyMetadata/ReadOnlyMetadata';
 import * as routes from '../../../../shared/constants/routes';
+import SafeSearch from './SafeSearch/SafeSearch';
+import Labels from './Labels/Labels';
 
 export default function AdminPropertyImage({
   history,
@@ -34,7 +36,7 @@ export default function AdminPropertyImage({
   const [deleteImageConfirmOpen, setDeleteImageConfirmOpen] = useState(false);
 
   useEffect(() => {
-    if (!image) {
+    if (!loadingImages) {
       boundImageFetch(match.params.imageId);
     }
 
@@ -56,7 +58,7 @@ export default function AdminPropertyImage({
     return <>Error! {errorSettings}</>;
   }
 
-  if (loadingImages || loadingSettings) {
+  if (Object.keys(image).length === 0 || loadingImages || loadingSettings) {
     return (
       <>
         <Dimmer active>
@@ -81,20 +83,13 @@ export default function AdminPropertyImage({
 
         {image && (
           <>
-            {/* <Header as="h3" textAlign="center">
-                {image.name}
-              </Header> */}
             <Grid stackable padded columns={2}>
               <Grid.Row>
                 <Grid.Column>
                   <Segment>
                     <Image src={image.url} />
                   </Segment>
-                  <Segment>
-                    <ReadOnlyMetadata image={image} />
-                  </Segment>
-                </Grid.Column>
-                <Grid.Column>
+
                   <Segment>
                     <Header content="Configurable metadata" size="medium" />
                     <UploadImageForm
@@ -115,6 +110,17 @@ export default function AdminPropertyImage({
                   >
                     Delete image?
                   </Button>
+                </Grid.Column>
+                <Grid.Column>
+                  <Segment>
+                    <ReadOnlyMetadata image={image} />
+                  </Segment>
+                  <Segment>
+                    <SafeSearch safeSearch={image.safeSearch} />
+                  </Segment>
+                  <Segment>
+                    <Labels labels={image.labels} />
+                  </Segment>
                 </Grid.Column>
               </Grid.Row>
             </Grid>

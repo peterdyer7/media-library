@@ -18,7 +18,7 @@ export default function AdminPropertyImages({
   boundSettingsFetch
 }) {
   useEffect(() => {
-    if (Object.keys(settings).length === 0) {
+    if (Object.keys(settings).length === 0 && !loadingSettings) {
       boundSettingsFetch('imageMetadata');
     }
     // TODO: might be worth evaluating whether this data has already been loaded - save a trip to the back-end
