@@ -2,6 +2,7 @@ export const LOGIN = '/';
 export const REGISTER = '/register';
 export const FORGOTPASSWORD = '/forgotpassword';
 export const PROPERTIES = '/properties';
+export const PROPERTY = '/properties/:propertyId';
 export const ADMIN = '/admin';
 export const ACCOUNT = '/account';
 export const ADMINPROPERTIES = '/properties';
