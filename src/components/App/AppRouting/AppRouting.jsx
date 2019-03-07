@@ -16,11 +16,13 @@ const Admin = lazy(() => import('../../admin/Admin/Admin'));
 const AccountContainer = lazy(() =>
   import('../../../containers/user/Account/AccountContainer')
 );
-//const Properties = lazy(() => import('../../user/Properties/Properties'));
 const PropertiesContainer = lazy(() =>
   import('../../../containers/user/Properties/ProperitesContainer')
 );
-const Property = lazy(() => import('../../user/Properties/Property/Property'));
+//const Property = lazy(() => import('../../user/Properties/Property/Property'));
+const PropertyContainer = lazy(() =>
+  import('../../../containers/user/Properties/Property/PropertyContainer')
+);
 
 export default function AppRouting({ user }) {
   return (
@@ -37,7 +39,7 @@ export default function AppRouting({ user }) {
               exact
               component={PropertiesContainer}
             />
-            <Route path={routes.PROPERTY} component={Property} />
+            <Route path={routes.PROPERTY} component={PropertyContainer} />
             <Redirect to={routes.PROPERTIES} />
           </Switch>
         </ResponsiveMenuContainer>
