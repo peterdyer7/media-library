@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import TagsSelect from '../../../../components/UI/forms/TagsSelect/TagsSelect';
+import TagsSelect from '../../../../components/UI/selects/TagsSelect/TagsSelect';
 import { addSetting } from '../../../../shared/redux/actions/settings';
 
 const mapStateToProps = (state) => ({
