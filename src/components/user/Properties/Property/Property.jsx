@@ -11,44 +11,28 @@ import {
 import { Link, NavLink, Switch, Route, Redirect } from 'react-router-dom';
 
 import Detail from './Detail/Detail';
-import Images from './Images/Images';
-import Image from './Image/Image';
+import ImagesContainer from '../../../../containers/user/Properties/Property/Images/ImagesContainer';
+import ImageContainer from '../../../../containers/user/Properties/Property/Image/ImageContainer';
 import * as routes from '../../../../shared/constants/routes';
 
 export default function Property({
-  propertyError,
-  propertyLoading,
   property,
-  imagesError,
-  imagesLoading,
-  images,
-  settings,
+  error,
+  loading,
   match,
-  boundPropertyFetch,
-  boundImagesPropertyFetch,
-  boundSettingsFetch
+  boundPropertyFetch
 }) {
   useEffect(() => {
     if (!property) {
       boundPropertyFetch(match.params.propertyId);
     }
-    // TODO: consider looking through the state to see what images exist
-    boundImagesPropertyFetch(match.params.propertyId);
-
-    if (Object.keys(settings).length === 0) {
-      boundSettingsFetch('imageMetadata');
-    }
   }, []);
 
-  if (propertyError) {
-    return <>Error! {propertyError}</>;
+  if (error) {
+    return <>Error! {error}</>;
   }
 
-  if (imagesError) {
-    return <>Error! {imagesError}</>;
-  }
-
-  if (!property || propertyLoading || imagesLoading) {
+  if (loading || !property) {
     return (
       <>
         <Dimmer active>
@@ -89,14 +73,14 @@ export default function Property({
             path={match.url + routes.IMAGES}
             exact
             render={() => (
-              <Images
-                images={images}
-                settings={settings}
-                propertyId={match.params.propertyId}
-              />
+              <ImagesContainer propertyId={match.params.propertyId} />
             )}
           />
-          <Route path={routes.PROPERTY + routes.IMAGE} component={Image} />
+          <Route
+            path={routes.PROPERTY + routes.IMAGE}
+            component={ImageContainer}
+            //render={() => <ImageContainer />}
+          />
           <Route
             path={match.url + routes.DETAILS}
             render={() => <Detail property={property} />}
@@ -111,13 +95,7 @@ export default function Property({
 Property.propTypes = {
   match: PropTypes.object.isRequired,
   property: PropTypes.object,
-  propertyError: PropTypes.string.isRequired,
-  propertyLoading: PropTypes.bool.isRequired,
-  imagesError: PropTypes.string,
-  imagesLoading: PropTypes.bool.isRequired,
-  images: PropTypes.array.isRequired,
-  settings: PropTypes.object.isRequired,
-  boundPropertyFetch: PropTypes.func.isRequired,
-  boundImagesPropertyFetch: PropTypes.func.isRequired,
-  boundSettingsFetch: PropTypes.func.isRequired
+  error: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  boundPropertyFetch: PropTypes.func.isRequired
 };

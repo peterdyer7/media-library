@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Header, List } from 'semantic-ui-react';
 
-import { convertTimestampToDate } from '../../../../../shared/utils/datetime';
+import { convertTimestampToDate } from '../../../../shared/utils/datetime';
 
 export default function ReadOnlyMetadata({ image }) {
   return (

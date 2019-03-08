@@ -14,10 +14,10 @@ import {
 import { Link } from 'react-router-dom';
 
 import UploadImageForm from '../AdminPropertyImages/UploadImage/UploadImageForm';
-import ReadOnlyMetadata from './ReadOnlyMetadata/ReadOnlyMetadata';
+import ReadOnlyMetadata from '../../../UI/images/ReadOnlyMetadata/ReadOnlyMetadata';
 import * as routes from '../../../../shared/constants/routes';
-import SafeSearch from './SafeSearch/SafeSearch';
-import Labels from './Labels/Labels';
+import SafeSearch from '../../../UI/images/SafeSearch/SafeSearch';
+import Labels from '../../../UI/images/Labels/Labels';
 
 export default function AdminPropertyImage({
   history,

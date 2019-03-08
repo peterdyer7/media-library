@@ -4,8 +4,8 @@ import { Form, Button, Label, List } from 'semantic-ui-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import SimpleSettingSelectContainer from '../../../../../containers/UI/forms/SimpleSettingSelect/SimpleSettingSelectContainer';
-import TagsSelectContainer from '../../../../../containers/UI/forms/TagsSelect/TagsSelectContainer';
+import SimpleSettingSelectContainer from '../../../../../containers/UI/selects/SimpleSettingSelect/SimpleSettingSelectContainer';
+import TagsSelectContainer from '../../../../../containers/UI/selects/TagsSelect/TagsSelectContainer';
 import * as errors from '../../../../../shared/constants/errors';
 
 export default function UploadImageForm({
